@@ -40,6 +40,20 @@ function chart(data, id, selectButton) {
         .attr("viewBox", [20, 0, width+20, height])
         .attr("style", "max-width: 100%; height: auto;")
 
+    //Zooming
+        const zoom = d3.zoom()
+        .scaleExtent([0.5, 5]) // Min and max zoom levels
+        .on("zoom", zoomed); //Zoomed function called when a zoom-event occurs (aka scrolling or clicking)
+    
+      // Call zoom
+      svg.call(zoom);
+    
+      function zoomed(event) {
+        // Update the transform of the graph container based on the zoom event
+        link.attr("transform", event.transform);
+        node.attr("transform", event.transform);
+      }
+
     const link = svg.append("g")
         .attr("stroke", "#999")
         .attr("stroke-opacity", 0.6)
